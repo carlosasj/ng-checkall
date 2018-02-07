@@ -10,7 +10,7 @@ import { NgModel } from '@angular/forms';
 export class CheckAllDirective implements AfterViewInit {
 
   @Output() checkedAll: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() model: boolean;
+  @Input() NgModel: boolean;
   @Output() ngModelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   private viewInitialized = false;
   private valueToSetAfterViewInit: boolean = undefined;
@@ -38,8 +38,8 @@ export class CheckAllDirective implements AfterViewInit {
 
   public setValue = (value: boolean, runBody = true) => {
     if (runBody) {
-      this.model = value;
-      this.ngModelChange.emit(this.model);
+      this.NgModel = value;
+      this.ngModelChange.emit(this.NgModel);
       // this.model.valueAccessor.writeValue(value);
     }
   }

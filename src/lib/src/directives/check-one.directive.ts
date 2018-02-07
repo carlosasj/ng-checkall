@@ -10,7 +10,7 @@ import { NgModel } from '@angular/forms';
 export class CheckOneDirective implements AfterViewInit {
 
   @Output() checkedOne: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() model: boolean;
+  @Input() NgModel: boolean;
   @Output() ngModelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   private viewInitialized = false;
   private lockFn = function () { return false; };
@@ -26,14 +26,14 @@ export class CheckOneDirective implements AfterViewInit {
     this.viewInitialized = true;
   }
 
-  public getValue() { return this.model; }
+  public getValue() { return this.NgModel; }
   public isDisabled() { return false; }
   public registerLockFn(fn: () => boolean) { this.lockFn = fn; }
 
   public setValue = (value: boolean, runBody = true) => {
     if (runBody) {
-      this.model = value;
-      this.ngModelChange.emit(this.model);
+      this.NgModel = value;
+      this.ngModelChange.emit(this.NgModel);
       // this.model.valueAccessor.writeValue(value);
     }
   }

@@ -1,4 +1,4 @@
-import { Directive, HostListener, Output, EventEmitter } from '@angular/core';
+import { Directive, HostListener, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 
@@ -7,10 +7,11 @@ import { NgModel } from '@angular/forms';
   selector: '[checkOne]',
   providers: [NgModel],
 })
-export class CheckOneDirective {
+export class CheckOneDirective implements AfterViewInit {
 
   @Output() checkedOne: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() ngModelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  private viewInitialized = false;
   private lockFn = function () { return false; };
 
   constructor(private model: NgModel) { }
@@ -22,12 +23,16 @@ export class CheckOneDirective {
     }
   }
 
+  ngAfterViewInit() {
+    this.viewInitialized = true;
+  }
+
   public getValue() { return this.model.value; }
   public isDisabled() { return this.model.disabled; }
   public registerLockFn(fn: () => boolean) { this.lockFn = fn; }
 
   public setValue(value: boolean, runBody = true) {
-    if (runBody && !this.model.disabled) {
+    if (runBody && this.viewInitialized && !this.model.disabled) {
       this.ngModelChange.emit(value);
       this.model.valueAccessor.writeValue(value);
     }

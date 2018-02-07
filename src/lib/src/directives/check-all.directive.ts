@@ -4,7 +4,8 @@ import { NgModel } from '@angular/forms';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[checkAll]'
+  selector: '[checkAll]',
+  providers: [NgModel],
 })
 export class CheckAllDirective {
 

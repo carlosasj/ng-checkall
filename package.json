@@ -1,6 +1,6 @@
 {
   "name": "ng-checkall",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple directive to \"Check All\" checkboxes behavior",
   "main": "./bundles/ng-checkall.umd.js",
   "module": "./ng-checkall.es5.js",

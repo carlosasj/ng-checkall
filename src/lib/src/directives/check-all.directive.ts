@@ -1,4 +1,4 @@
-import { Directive, HostListener, Output, EventEmitter } from '@angular/core';
+import { Directive, HostListener, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 
@@ -7,10 +7,12 @@ import { NgModel } from '@angular/forms';
   selector: '[checkAll]',
   providers: [NgModel],
 })
-export class CheckAllDirective {
+export class CheckAllDirective implements AfterViewInit {
 
   @Output() checkedAll: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() ngModelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  private viewInitialized = false;
+  private valueToSetAfterViewInit: boolean = undefined;
   private lockFn = function() { return false; };
 
   constructor(private model: NgModel) { }
@@ -20,6 +22,18 @@ export class CheckAllDirective {
     if (!this.lockFn()) {
       this.checkedAll.emit($event);
     }
+  }
+
+  ngAfterViewInit() {
+    this.viewInitialized = true;
+    if (this.valueToSetAfterViewInit) {
+      this.setValue(this.valueToSetAfterViewInit);
+    }
+  }
+
+  public setAfterViewInit(value: boolean) {
+    this.valueToSetAfterViewInit = value;
+    if (this.viewInitialized && this.valueToSetAfterViewInit) { this.setValue(this.valueToSetAfterViewInit); }
   }
 
   public setValue(value: boolean, runBody = true) {

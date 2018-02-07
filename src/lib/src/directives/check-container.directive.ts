@@ -20,12 +20,12 @@ export class CheckContainerDirective implements AfterViewInit, OnDestroy {
       item.registerLockFn(this.getLock.bind(this));
       this.subscribes.push(item.checkedOne.subscribe(this.onCheckOne.bind(this)));
     });
+    const result = this.getValueToSetCheckAll();
     this.checkAllDirectives.forEach(item => {
       item.registerLockFn(this.getLock.bind(this));
       this.subscribes.push(item.checkedAll.subscribe(this.onCheckAll.bind(this)));
+      item.setAfterViewInit(result);
     });
-    this.lock = true;
-    setTimeout(this.updateView.bind(this), 1);
   }
 
   ngOnDestroy() {
@@ -51,9 +51,13 @@ export class CheckContainerDirective implements AfterViewInit, OnDestroy {
     this.lock = false;
   }
 
-  public updateView() {
+  public getValueToSetCheckAll() {
     const checked = this.getCheckboxesToCheck().map<boolean>(item => item.getValue());
-    const result = checked.every(i => i);
+    return checked.every(i => i);
+  }
+
+  public updateView() {
+    const result = this.getValueToSetCheckAll();
     this.checkAllDirectives.forEach(item => item.setValue(result, this.lock));
     this.lock = false;
   }

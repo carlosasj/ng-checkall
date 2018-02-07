@@ -1,21 +1,21 @@
-import { Directive, HostListener, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Directive, HostListener, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[checkAll]',
+  selector: '[ngModel][checkAll]:not([disabled])',
   providers: [NgModel],
 })
 export class CheckAllDirective implements AfterViewInit {
 
   @Output() checkedAll: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() model: boolean;
   @Output() ngModelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   private viewInitialized = false;
   private valueToSetAfterViewInit: boolean = undefined;
   private lockFn = function() { return false; };
 
-  constructor(private model: NgModel) { }
 
   @HostListener('ngModelChange', ['$event'])
   onModelChange($event: boolean) {
@@ -37,9 +37,10 @@ export class CheckAllDirective implements AfterViewInit {
   }
 
   public setValue = (value: boolean, runBody = true) => {
-    if (runBody && this.viewInitialized && !this.model.disabled) {
-      this.ngModelChange.emit(value);
-      this.model.valueAccessor.writeValue(value);
+    if (runBody) {
+      this.model = value;
+      this.ngModelChange.emit(this.model);
+      // this.model.valueAccessor.writeValue(value);
     }
   }
 

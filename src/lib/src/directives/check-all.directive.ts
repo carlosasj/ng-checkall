@@ -36,7 +36,7 @@ export class CheckAllDirective implements AfterViewInit {
     if (this.viewInitialized && this.valueToSetAfterViewInit) { this.setValue(this.valueToSetAfterViewInit); }
   }
 
-  public setValue(value: boolean, runBody = true) {
+  public setValue = (value: boolean, runBody = true) => {
     if (runBody && this.viewInitialized && !this.model.disabled) {
       this.ngModelChange.emit(value);
       this.model.valueAccessor.writeValue(value);

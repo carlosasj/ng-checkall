@@ -31,7 +31,7 @@ export class CheckOneDirective implements AfterViewInit {
   public isDisabled() { return this.model.disabled; }
   public registerLockFn(fn: () => boolean) { this.lockFn = fn; }
 
-  public setValue(value: boolean, runBody = true) {
+  public setValue = (value: boolean, runBody = true) => {
     if (runBody && this.viewInitialized && !this.model.disabled) {
       this.ngModelChange.emit(value);
       this.model.valueAccessor.writeValue(value);

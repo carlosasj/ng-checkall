@@ -1,13 +1,20 @@
-import { Directive, HostListener, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Directive, HostListener, forwardRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[ngModel][checkOne]:not([disabled])',
-  providers: [NgModel],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      // tslint:disable-next-line:no-forward-ref
+      useExisting: forwardRef(() => CheckOneDirective),
+      multi: true
+    },
+  ],
 })
-export class CheckOneDirective implements AfterViewInit {
+export class CheckOneDirective implements ControlValueAccessor, AfterViewInit {
 
   @Output() checkedOne: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() NgModel: boolean;

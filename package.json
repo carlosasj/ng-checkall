@@ -21,11 +21,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "echo \"Por favor, selecione um ambiente\"",
+    "build:local": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build",
+    "build:prod": "yarn build:local --prod -e prod --base-href /ng-checkall/",
     "test": "ng test",
     "lint": "tslint \"src/**/*.ts\" -p .",
     "e2e": "ng e2e",
-    "gh-pages": "yarn build -op docs && cp docs/index.html docs/404.html",
+    "gh-pages": "yarn build:prod -op docs && cp docs/index.html docs/404.html",
     "packagr": "ng-packagr -p ng-package.json"
   },
   "private": false,

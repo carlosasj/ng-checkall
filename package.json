@@ -1,6 +1,6 @@
 {
   "name": "ng-checkall",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple directive to \"Check All\" checkboxes behavior",
   "license": "MIT",
   "repository": {

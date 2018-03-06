@@ -1,6 +1,6 @@
 # NgCheckall
 
-How many times you had to deal with the behavior of a List or Table full of checkboxes and one checkbox at the top to "Chell all" the others?
+How many times you had to deal with the behavior of a List or Table full of checkboxes and one checkbox at the top to "Check all" the others?
 
 This Angular 4+ lib aims to encapsulate this logic and reduce development time, bugs and duplicated code.
 
@@ -59,9 +59,9 @@ import { NgCheckallModule } from 'ng-checkall';
 
 ## Common issues
 
-* Programatically setting the `checkAll` model will **not** mark all the checkboxes. Instead, prefer iterate over your items and marking all of them as `checked` (and then the `checkAll` model will be automatically marked)
+* Programmatically setting the `checkAll` model will **not** mark all the checkboxes. Instead, prefer iterate over your items and marking all of them as `checked` (and then the `checkAll` model will be automatically marked)
 
-* Right now, one container will handle all the checkboxes inside it, so it will **not** work properly if you have a Table where each column shuld be a container with it's own `checkAll` and `checkOne` set of directives.
+* Right now, one container will handle all the checkboxes inside it, so it will **not** work properly if you have a Table where each column should be a container with its own `checkAll` and `checkOne` set of directives.
 
 ## Development server
 

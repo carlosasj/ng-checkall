@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Directive, Output, EventEmitter, AfterViewInit, Input } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AbstractCheckDirective } from './abstract-check.directive';
 
@@ -8,7 +8,10 @@ import { AbstractCheckDirective } from './abstract-check.directive';
   selector: '[checkOne]',
 })
 export class CheckOneDirective extends AbstractCheckDirective implements AfterViewInit {
-
+  @Input('disabled')
+  set disabled(val: boolean) {
+    this._onModelChange.bind(this)(true);
+  }
   @Output() checkedOne: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private model: NgModel) {

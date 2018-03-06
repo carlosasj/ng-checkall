@@ -1,4 +1,34 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>NG-CHECKALL</h1>
+<div>
+  <h1>NgCheckall</h1>
+  <h4><a href="https://github.com/carlosasj/ng-checkall">Go to repository</a></h4>
 </div>
+
+<form>
+  <div checkContainer class="content">
+    <div>
+      <input checkAll type="checkbox" name="checkAllStart" id="checkAllStart" [(ngModel)]="checkAll">
+      <label for="checkAllStart">Check All</label>
+    </div>
+
+    <hr>
+
+    <div *ngFor="let c of checkItems">
+      <input checkOne type="checkbox" [name]="c.name" [id]="c.name" [disabled]="c.disabled" [(ngModel)]="c.checked">
+      <label [for]="c.name">{{c.name}}</label>
+    </div>
+
+    <hr>
+
+    <div> <!-- Accepts multiple 'Check All' -->
+      <input checkAll type="checkbox" name="checkAllEnd" id="checkAllEnd" [(ngModel)]="checkAll">
+      <label for="checkAllEnd">Check All</label>
+    </div>
+
+    <p>
+      <button (click)="addItem()">Add</button>
+      <button (click)="toggleItem()">Toggle "Check 06"</button>
+      <button (click)="toggleDisabled()">Toggle Disabled "Check 06"</button>
+    </p>
+
+  </div>
+</form>

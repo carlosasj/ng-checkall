@@ -19,7 +19,7 @@ export abstract class AbstractCheckDirective {
   }
 
   protected _onModelChange($event) {
-    if (!this.lockFn()) {
+    if (!this.lockFn() && !this._model.disabled) {
       this.checkedEmitter.emit($event);
     }
   }

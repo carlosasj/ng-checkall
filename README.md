@@ -4,6 +4,10 @@ How many times you had to deal with the behavior of a List or Table full of chec
 
 This Angular 4+ lib aims to encapsulate this logic and reduce development time, bugs and duplicated code.
 
+## Demo
+
+[Go to Demo](https://carlosasj.github.io/ng-checkall/)
+
 ## Installation
 
     npm i --save ng-checkall
